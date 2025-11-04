@@ -81,8 +81,8 @@ public class HttpMethodServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("GET 요청 들어옴");
 
+        System.out.println("GET 요청 들어옴");
 
         // 요청
         System.out.println(req.getMethod());
@@ -115,8 +115,4 @@ public class HttpMethodServlet extends HttpServlet {
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
         resp.getWriter().println("데이터 추가 성공!!");
     }
-
-
-
-
 }
