@@ -1,0 +1,19 @@
+package com.korit.servelt_study.ch07;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
+public class Board {
+
+    private String title;
+    private String content;
+    private String writer;
+
+}
