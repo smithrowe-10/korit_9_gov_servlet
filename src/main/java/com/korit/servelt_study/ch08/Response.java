@@ -6,10 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-public class Board {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Response {
 
-    private String title;
-    private String content;
-    private String writer;
+    private String message;
 
 }
