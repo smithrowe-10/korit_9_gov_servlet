@@ -37,7 +37,9 @@ public class BoardServlet extends HttpServlet {
         String json = stringBuilder.toString();
         System.out.println(json);
 
+        ObjectMapper objectMapper = new ObjectMapper();
 
+        objectMapper.readValue(json, Board.class);
 
     }
 }
