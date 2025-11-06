@@ -32,7 +32,7 @@ public class BoardServlet extends HttpServlet {
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
         resp.setContentType("application/json");
 
-        objectMapper.writeValue(resp.getOutputStream(), boards); `
+        objectMapper.writeValue(resp.getOutputStream(), boards);
 
 
     }
