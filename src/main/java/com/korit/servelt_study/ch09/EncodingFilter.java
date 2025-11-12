@@ -1,7 +1,6 @@
 package com.korit.servelt_study.ch09;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 

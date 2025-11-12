@@ -11,6 +11,7 @@ public class StudentRepo {
 
     List<Student> students;
     private static StudentRepo instance;
+    private int autoId = 20250001;
 
     public StudentRepo() {
         students = new ArrayList<>();
@@ -23,8 +24,19 @@ public class StudentRepo {
         return instance;
     }
 
+    public List<Student> findAllBySearchNameValue(String searchNameValue) {
+        if (Objects.isNull(searchNameValue)) {
+            return students;
+        }
+        return students.stream()
+                .filter(student -> student.getName().contains(searchNameValue))
+                .toList();
+    }
+
     public void addList (Student student) {
+        student.setId(autoId++);
         students.add(student);
+        System.out.println(students);
     }
 
 }

@@ -9,22 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+
 
 @WebServlet("/study/students")
 public class StudentServlet extends HttpServlet {
 
-    ObjectMapper objectMapper;
-    StudentRepo students;
-    Response response;
+    private ObjectMapper objectMapper;
+    private StudentRepo studentRepo;
+    private Response response;
 
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        students = StudentRepo.getInstance();
+
+        studentRepo = StudentRepo.getInstance();
         objectMapper = new ObjectMapper();
         response = new Response("정보등록 완료");
+        config.getServletContext().setAttribute("sr", studentRepo);
 
     }
 
@@ -32,17 +33,8 @@ public class StudentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String searchNameValue = req.getParameter("searchName");
-        if (Objects.isNull(searchNameValue)) {
-            objectMapper.writeValue(resp.getWriter(),students);
-            return;
-        }
 
-        List<Student> foundStudents = students.getStudents().stream()
-                        .filter(student -> student.getName().contains(searchNameValue))
-                                .toList();
-
-
-        objectMapper.writeValue(resp.getWriter(), foundStudents);
+        objectMapper.writeValue(resp.getWriter(), studentRepo.findAllBySearchNameValue(searchNameValue));
 
     }
 
@@ -52,8 +44,7 @@ public class StudentServlet extends HttpServlet {
 
         Student student = objectMapper.readValue(req.getInputStream(), Student.class);
 
-        students.addList(student);
-        System.out.println(students);
+        studentRepo.addList(student);
 
         objectMapper.writeValue(resp.getWriter(), response);
 

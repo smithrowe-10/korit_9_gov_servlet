@@ -27,7 +27,7 @@
     </filter>
     <filter-mapping>
         <filter-name>encoding-filter</filter-name>
-        <url-pattern>/study/students</url-pattern>
+        <url-pattern>/study/*</url-pattern>
     </filter-mapping>
 
     <filter>
