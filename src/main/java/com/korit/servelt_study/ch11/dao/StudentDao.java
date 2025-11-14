@@ -4,10 +4,7 @@ import com.korit.servelt_study.ch11.entity.Student;
 import com.korit.servelt_study.ch11.util.DBConnectionMgr;
 import lombok.RequiredArgsConstructor;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 @RequiredArgsConstructor
 public class StudentDao {
@@ -23,7 +20,7 @@ public class StudentDao {
             con = mgr.getConnection();
             String sql =
                     """
-                        INSERT INTO student_tb
+                        INSERT INTO student_tb (student_id, student_name, phone, email, department_id, grade, major_type, admission_year)
                         values (
                                 default, ? ,? ,? ,? ,? ,? ,?
                         )
@@ -38,7 +35,10 @@ public class StudentDao {
             ps.setString(6, student.getMajorType());
             ps.setString(7, student.getAdmissionYear());
 
-            ps.execute();
+            if (ps.executeUpdate() < 1) {
+                throw new SQLException();
+            }
+
             rs = ps.getGeneratedKeys();
             while (rs.next()) {
                 int studentId = rs.getInt(1);

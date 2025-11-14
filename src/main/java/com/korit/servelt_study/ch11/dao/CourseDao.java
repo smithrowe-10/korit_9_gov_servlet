@@ -23,7 +23,7 @@ public class CourseDao {
             con = mgr.getConnection();
             String sql =
                     """
-                        INSERT INTO course_tb
+                        INSERT INTO course_tb 
                         values (
                                 default, ?, ?, ?, ?, ?, ?
                         )

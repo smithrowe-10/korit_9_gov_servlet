@@ -11,27 +11,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class ProfessorDao {
+public class ProfessorDaoName {
 
     private final DBConnectionMgr mgr;
 
-    public List<Professor> findAllByName(String name) {
+    public List<Professor> findAllLikeName(String name) {
         List<Professor> professors = new ArrayList<>();
+
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
             con = mgr.getConnection();
-
             String sql =
                     """
-                        SELECT *
+                        SELECT 
+                            professor_id,
+                            professor_name
                         FROM professor_tb
-                        ORDER BY professor_id;
+                        WHERE 
+                            professor_name LIKE concat('%', ?, '%')
+                        order by professor_id;
                     """;
 
             ps = con.prepareStatement(sql);
+            ps.setString(1, name);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -44,11 +49,13 @@ public class ProfessorDao {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
             mgr.freeConnection(con, ps, rs);
         }
+
         return professors;
     }
+
 
 }
